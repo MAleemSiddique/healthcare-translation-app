@@ -18,7 +18,7 @@ This screenshot shows the homepage of the app. There are separate sections for t
 - ## How to Run
 1. After cloning the repository, run index.html file in chrome
 2. In the terminal, type the following command to run the backend file that performs translation:
-   '''bash
+   '''
    flask --app translation run
    '''
 ## How to Use
