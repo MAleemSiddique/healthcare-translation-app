@@ -27,3 +27,8 @@ This screenshot shows the homepage of the app. There are separate sections for t
 3. View the transcript in the provided text area. The transcription stops when the user stops speaking.
 4. Choose the target language for translation and click "Translate."
 5. Listen to the audio of the translated text using the "Play Audio" button.
+## Deployment
+The project has been deployed under the following link:
+```
+https://healthcaretranslationapp.vercel.app/
+```
