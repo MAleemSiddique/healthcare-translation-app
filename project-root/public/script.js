@@ -4,6 +4,7 @@
 if (!('webkitSpeechRecognition' in window)) {
   alert('Speech Recognition is not supported in your browser. Please try Chrome or Edge.');
 } else {
+  // Get the language selected by the user
   const languageSelect = document.getElementById('language-select');
   const recognition = new webkitSpeechRecognition();
   recognition.lang = languageSelect.value; // Default language
@@ -14,14 +15,14 @@ if (!('webkitSpeechRecognition' in window)) {
   const transcriptArea = document.getElementById('transcript');
   const status = document.getElementById('status');
   console.log('Supported languages:', webkitSpeechRecognition.lang);
-
+// Event listener for the when the user presses the speak button
   speakButton.addEventListener('click', () => {
-    recognition.start();
+    recognition.start(); // start the recognition
     status.textContent = 'Listening... Speak now!';
     speakButton.disabled = true;
   });
 
-  recognition.onresult = (event) => {
+  recognition.onresult = (event) => { // script to show the results in the transcript area
     let finalTranscript = '';
     for (let i = 0; i < event.results.length; i++) {
       finalTranscript += event.results[i][0].transcript;
@@ -29,12 +30,12 @@ if (!('webkitSpeechRecognition' in window)) {
     transcriptArea.value = finalTranscript;
   };
 
-  recognition.onend = () => {
+  recognition.onend = () => { // when the user stops speaking
     status.textContent = 'Click the button to start speaking...';
     speakButton.disabled = false;
   };
 
-  recognition.onerror = (event) => {
+  recognition.onerror = (event) => { // in case an error is faced during the speaking
     console.error('Speech recognition error:', event.error);
     status.textContent = `Error: ${event.error}`;
     speakButton.disabled = false;
@@ -46,8 +47,9 @@ const translateButton = document.getElementById('translateButton');
 const targetLanguageSelect = document.getElementById('Targetlanguage');
 const translationOutput = document.getElementById('translation-output');
 const playAudioButton = document.getElementById('play-audio-button'); // New button
-
+// Event listener for when the translate button is pressed
 translateButton.addEventListener('click', async () => {
+  // store the transcript and selected language into variables
   const transcript = document.getElementById('transcript').value;
   const targetLanguage = targetLanguageSelect.value;
 
@@ -58,6 +60,7 @@ translateButton.addEventListener('click', async () => {
   console.log('Transcript:', transcript);
   console.log('TL:', targetLanguage);
   try {
+    // send the transcript and selected language to the flask backend at the specified address (relative path)
     const response = await fetch('/api/translate', {
       method: 'POST',
       headers: {
@@ -68,11 +71,11 @@ translateButton.addEventListener('click', async () => {
         targetLanguage: targetLanguage
       })
     });
-
+// wait for response
     const data = await response.json();
     console.log('Translation data:', data);
-    if (data.translation) {
-      translationOutput.value = data.translation;
+    if (data.translation) { // if response is in the expected form
+      translationOutput.value = data.translation; // output in the intended area
     } else if (data.error) {
       translationOutput.value = `Error: ${data.error}`;
     }
@@ -83,7 +86,7 @@ translateButton.addEventListener('click', async () => {
 });
 
 // Add audio playback functionality
-playAudioButton.addEventListener('click', () => {
+playAudioButton.addEventListener('click', () => { 
   const translation = translationOutput.value;
   if (!translation) {
     alert('Please translate the text first!');
