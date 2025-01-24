@@ -18,9 +18,9 @@ This screenshot shows the homepage of the app. There are separate sections for t
 - ## How to Run
 1. After cloning the repository, run index.html file in chrome
 2. In the terminal, type the following command to run the backend file that performs translation:
-   '''
+   ```
    flask --app translation run
-   '''
+   ```
 ## How to Use
 1. Select the language you want to speak in.
 2. Click the "Speak" button and start talking.
