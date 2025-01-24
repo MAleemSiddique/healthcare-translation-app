@@ -18,7 +18,7 @@ CORS(app, resources={
 })
 # Llama 3 API endpoint and headers
 LLAMA_API_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
-API_KEY = os.getenv("LLAMA_API_KEY")  # Use environment variable for API key
+API_KEY = os.getenv("LLAMA_API_KEY")  # Use environment variable for API key, this API key has been stored as an enviornment variable in the vercel
 
 @app.route('/api/translate', methods=['OPTIONS', 'POST'])
 def translate_text():
